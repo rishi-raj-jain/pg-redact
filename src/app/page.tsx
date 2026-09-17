@@ -67,7 +67,7 @@ export default function Page() {
           <div className="mt-3 space-y-3">
             {loading && messages.length === 0
               ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-24 w-full rounded-xl" />)
-              : messages.map((m) => <MessageCard key={m.id} m={m} role={role} clearance={clearance} />)}
+              : messages.map((m, idxRender) => <MessageCard key={m.id} m={m} idxRender={messages.length - idxRender} role={role} clearance={clearance} />)}
           </div>
         </section>
 
@@ -210,7 +210,7 @@ function LegendPanel({ clearance }: { clearance: number }) {
   )
 }
 
-function MessageCard({ m, role, clearance }: { m: MessageDTO; role: Role; clearance: number }) {
+function MessageCard({ m, role, clearance, idxRender }: { m: MessageDTO; role: Role; clearance: number; idxRender: number }) {
   const [dbOpen, setDbOpen] = useState(false)
   const [dbText, setDbText] = useState<string | null>(null)
   const [dbLoading, setDbLoading] = useState(false)
@@ -241,7 +241,7 @@ function MessageCard({ m, role, clearance }: { m: MessageDTO; role: Role; cleara
       <CardContent className="px-4">
         <div className="mb-2 flex items-center gap-2 text-xs">
           <Badge variant="secondary" className="mono">
-            #{m.id}
+            #{idxRender}
           </Badge>
           <Badge variant="outline">{m.source}</Badge>
           {m.piiCount > 0 && (
