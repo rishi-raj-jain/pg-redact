@@ -4,7 +4,7 @@ A live demo of **content-aware PII redaction, enforced in Postgres**: a support 
 
 It is content-aware, not pattern-based: "the front office" stays visible, a phone number does not. The decision carries a calibrated confidence, and the redaction is enforced inside Postgres by a `redact()` SQL function gated on the viewer's clearance.
 
-Built with Next.js, React 19, Tailwind v4, [Neon UI](https://ui.neon.com) components, `@neondatabase/serverless`, and the Jev API.
+Built with Next.js, React 19, Tailwind v4, [Neon UI](https://ui.neon.com) components, `@neondatabase/serverless`, and the [Jev API](https://docs.typesafe.ai/).
 
 ## How it works
 
@@ -64,12 +64,8 @@ scripts/
 
 ## Rate limiting
 
-`POST /api/classify` (the "add your own message" flow) is capped at **10 new queries per IP per day**. The client IP comes from `@vercel/functions` `ipAddress()` on Vercel, falling back to the first `x-forwarded-for` hop locally. Counts are kept in a `rate_limits(ip, day, count)` table and reset each calendar day; over the limit returns `429` with a `Retry-After` header. The UI shows how many queries are left after each run.
+`POST /api/classify` (the "add your own message" flow) is capped at **10 new queries per IP per day**. The client IP comes from `@vercel/functions` `ipAddress()` on Vercel, falling back to the first `x-forwarded-for` hop locally. Counts are kept in a `rate_limits(ip, day, count)` table and reset each calendar day; over the limit returns `429` with a `Retry-After` header.
 
 ## Indexes and caching
 
-No secondary indexes are defined, on purpose. The list query reads every row ordered by `id` (a full scan an index cannot beat), and the per-message lookup already uses the `messages_pkey` primary-key index. `npm run db:prewarm` uses `pg_prewarm` to pull the table and its index into the buffer cache, which only helps after a Neon scale-to-zero cold start.
-
-## Notes on Jev's "zero hallucinations"
-
-Jev guarantees the output conforms to the schema (it is always one of your labels), not that the label is always correct. That is exactly why the confidence is surfaced on every span and why the reveal threshold is a knob you can tune.
+The list query reads every row ordered by `id`, and the per-message lookup already uses the `messages_pkey` primary-key index. `npm run db:prewarm` uses `pg_prewarm` to pull the table and its index into the buffer cache, which only helps after a Neon scale-to-zero cold start.
