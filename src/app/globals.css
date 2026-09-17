@@ -1,0 +1,110 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '../components/tokens.css';
+
+/*
+ * Palette adapted from rishi.app/blog/neon-vs-supabase-stackoverflow:
+ * near-black ink on #fafafa, green accent, quiet gray borders. These override
+ * the Neon UI token defaults so every shadcn/Neon component inherits the look.
+ */
+:root {
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #15803d;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f3f4f6;
+  --muted-foreground: #666666;
+  --accent: #ecfdf5;
+  --accent-foreground: #15803d;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #15803d;
+  --radius: 0.5rem;
+
+  /* PII hues tuned for a light background. */
+  --pii-name: #7c3aed;
+  --pii-email: #2563eb;
+  --pii-phone: #15803d;
+  --pii-address: #b45309;
+  --pii-id_number: #b91c1c;
+  --redact: #0a0a0a;
+
+  --font-mono: var(--font-jetbrains-mono, 'JetBrains Mono', ui-monospace, monospace);
+}
+
+html {
+  color-scheme: light;
+}
+body {
+  overflow-x: clip;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+/* Faint green wash, matching the accent. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(1100px 460px at 84% -14%, color-mix(in oklch, var(--primary) 8%, transparent), transparent 62%);
+  z-index: 0;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* A redaction bar: a solid ink block hiding the value underneath. */
+.redaction {
+  display: inline-block;
+  background: var(--redact);
+  color: transparent;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, white 12%, transparent);
+  vertical-align: baseline;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+  user-select: none;
+}
+.redaction:hover {
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklch, white 24%, transparent),
+    0 0 0 3px color-mix(in oklch, var(--primary) 22%, transparent);
+}
+
+/* A revealed identifier: underlined in its type color. */
+.reveal-mark {
+  cursor: pointer;
+  border-bottom: 2px solid var(--mark, var(--primary));
+  padding-bottom: 1px;
+  border-radius: 2px;
+  transition: background 0.15s ease;
+}
+.reveal-mark:hover {
+  background: color-mix(in oklch, var(--mark, var(--primary)) 14%, transparent);
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.pop {
+  animation: pop 0.14s ease-out;
+}
