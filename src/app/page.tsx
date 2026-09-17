@@ -359,7 +359,7 @@ function PasteBox({ role, onDone }: { role: Role; onDone: () => void }) {
           Add your own message
         </div>
         <p className="text-xs text-muted-foreground">
-          Try obfuscated data (&ldquo;my email is jane dot doe at gmail dot com&rdquo;) or a decoy (&ldquo;meet at the corner of Hope and Main&rdquo;).
+          Try obfuscated PII (&ldquo;my cell is five five five, two one two, oh nine eight seven&rdquo;) or a decoy (&ldquo;meet at the corner of Hope and Main&rdquo;).
         </p>
         <textarea
           ref={ref}
