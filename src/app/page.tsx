@@ -72,6 +72,7 @@ export default function Page() {
         </section>
 
         <aside className="order-1 space-y-5 lg:order-2 lg:sticky lg:top-6 lg:self-start">
+          <Buzz />
           <RolePanel role={role} setRole={setRole} />
           <StatsPanel messages={messages.length} totalPii={totalPii} totalMasked={totalMasked} revealed={totalPii - totalMasked} />
           <LegendPanel clearance={clearance} />
@@ -116,6 +117,56 @@ function Header() {
         <em className="text-green-600">the front office</em> stays visible while a <em className="font-semibold text-yellow-600">phone number</em> in the same field does not.
       </p>
     </header>
+  )
+}
+
+const BUZZ: { quote: string; name: string; handle: string; platform: string; url: string; image: string; post: string }[] = [
+  {
+    quote: 'Nice!',
+    name: 'Dan Mana',
+    handle: '@danmana',
+    platform: 'Discord',
+    url: 'https://x.com/danmana',
+    image: 'https://pbs.twimg.com/profile_images/1805884568169234432/04VhnMQH_400x400.jpg',
+    post: 'https://discord.com/channels/1483217544214085663/1483217545040232493/1550171918584385688',
+  },
+  {
+    quote: 'interesting…',
+    name: 'Sharyph',
+    handle: 'sharyph',
+    platform: 'Peerlist',
+    url: 'https://peerlist.io/sharyph',
+    image: 'https://dqy38fnwh4fqs.cloudfront.net/UHLK9GKQAMAK67NH96RMKQLLEKBM/hlk9gkqamak67nh96rmkqllekbm-4524-profile.webp',
+    post: 'https://peerlist.io/scroll/post/ACTHNN7R8JAMK8ENDCKPDAONRJAMNG?commentId=CHDNDB897OPLOEMIANBPNDRKAR9R',
+  },
+]
+
+function Buzz() {
+  return (
+    <section className="">
+      <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">What people are saying</h2>
+      <div className="mt-2 py-2 px-2 flex gap-2 flex-row overflow-x-scroll">
+        {BUZZ.map((b) => (
+          <Card key={b.url} className="py-4 min-w-min">
+            <CardContent className="">
+              <a href={b.post} target="_blank" rel="noopener noreferrer" className="group block">
+                <p className="text-sm text-foreground/90 transition group-hover:text-foreground">&ldquo;{b.quote}&rdquo;</p>
+              </a>
+              <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
+                <a href={b.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 transition hover:text-foreground">
+                  <img src={b.image} alt={b.name} className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-[0.65rem] font-medium text-foreground" />
+                  <span className="font-medium text-foreground">{b.handle}</span>
+                </a>
+                <span className="text-muted-foreground/60">on</span>
+                <a href={b.post} target="_blank" rel="noopener noreferrer" className="text-muted-foreground/60 underline-offset-2 transition hover:text-foreground hover:underline">
+                  {b.platform}
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
   )
 }
 
