@@ -122,6 +122,15 @@ function Header() {
 
 const BUZZ: { quote: string; name: string; handle: string; platform: string; url: string; image: string; post: string }[] = [
   {
+    quote: '@Rishi is on 🔥',
+    name: 'Andre Landgraf',
+    handle: '@andrelandgraf',
+    platform: 'Discord',
+    url: 'https://x.com/andrelandgraf',
+    image: 'https://pbs.twimg.com/profile_images/1971260572223275016/FG_T-KCm_400x400.jpg',
+    post: 'https://discord.com/channels/1176467419317940276/1548073447467253871/1550224753565110355',
+  },
+  {
     quote: 'Nice!',
     name: 'Dan Mana',
     handle: '@danmana',
