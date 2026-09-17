@@ -3,6 +3,7 @@ import { sql } from '@/lib/db'
 import { buildSegments, clearanceFor, isRole, type Span } from '@/lib/pii'
 
 export const maxDuration = 300
+export const dynamic = 'force-dynamic'
 
 type Row = {
   id: number

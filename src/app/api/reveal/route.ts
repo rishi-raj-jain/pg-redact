@@ -5,6 +5,7 @@ import { clearanceFor, isRole, SENSITIVITY, type PiiType, type Span } from '@/li
 type Row = { db_masked: string; spans: Span[] }
 
 export const maxDuration = 300
+export const dynamic = 'force-dynamic'
 
 /**
  * Under-the-hood view: proves the redaction is enforced inside Postgres by the

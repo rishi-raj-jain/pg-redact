@@ -4,6 +4,7 @@ import { buildSegments, clearanceFor, generateCandidates, isRole, type Span } fr
 import { clientIp, DAILY_LIMIT, rateLimit } from '@/lib/ratelimit'
 
 export const maxDuration = 300
+export const dynamic = 'force-dynamic'
 
 type Row = {
   id: number
