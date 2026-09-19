@@ -26,7 +26,6 @@ export async function POST(req: Request) {
   if (body.length > 2000) return Response.json({ error: 'Keep it under 2000 characters for the demo.' }, { status: 400 })
   const roleRaw = typeof payload.role === 'string' ? payload.role : 'guest'
   const role = isRole(roleRaw) ? roleRaw : 'guest'
-
   // Rate limit: DAILY_LIMIT new classifications per IP per day.
   const ip = clientIp(req)
   const rate = await rateLimit(ip)
@@ -45,7 +44,6 @@ export async function POST(req: Request) {
       },
     )
   }
-
   const candidates = generateCandidates(body)
   let result
   try {

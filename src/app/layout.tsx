@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://pg-redact.vercel.app'
+const SITE_URL = 'https://pg-redact.vercel.app'
 const TITLE = 'pg_redact — Content-aware PII redaction, enforced in Postgres'
 const DESCRIPTION =
   'A live demo of content-aware PII redaction: a support inbox in Neon Postgres where Jev (TypeSafe System One) classifies every field, and a redact() SQL function reveals or seals it by your clearance level. Switch roles and watch the data mask in real time.'

@@ -52,8 +52,8 @@ export default function Page() {
     <main className="mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6">
       <Header />
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_340px]">
-        <section className="order-2 lg:order-1">
+      <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_340px]">
+        <section className="order-2 min-w-0 lg:order-1">
           <PasteBox role={role} onDone={() => load(role)} />
 
           <div className="mt-5 flex items-center justify-between">
@@ -71,7 +71,7 @@ export default function Page() {
           </div>
         </section>
 
-        <aside className="order-1 space-y-5 lg:order-2 lg:sticky lg:top-6 lg:self-start">
+        <aside className="order-1 min-w-0 space-y-5 lg:order-2 lg:sticky lg:top-6 lg:self-start">
           <Buzz />
           <RolePanel role={role} setRole={setRole} />
           <StatsPanel messages={messages.length} totalPii={totalPii} totalMasked={totalMasked} revealed={totalPii - totalMasked} />
@@ -154,9 +154,9 @@ function Buzz() {
   return (
     <section className="">
       <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">What people are saying</h2>
-      <div className="mt-2 py-2 px-2 flex gap-2 flex-row overflow-x-scroll">
+      <div className="mt-2 -mx-2 flex snap-x snap-mandatory flex-row gap-2 overflow-x-auto px-2 py-2">
         {BUZZ.map((b) => (
-          <Card key={b.url} className="py-4 min-w-min">
+          <Card key={b.url} className="w-56 shrink-0 snap-start py-4">
             <CardContent className="">
               <a href={b.post} target="_blank" rel="noopener noreferrer" className="group block">
                 <p className="text-sm text-foreground/90 transition group-hover:text-foreground">&ldquo;{b.quote}&rdquo;</p>
@@ -314,7 +314,7 @@ function MessageCard({ m, role, clearance, idxRender }: { m: MessageDTO; role: R
           )}
         </div>
 
-        <p className="leading-relaxed">
+        <p className="leading-relaxed wrap-break-word">
           {m.segments.map((seg, i) => (seg.kind === 'text' ? <span key={i}>{seg.value}</span> : <PiiMark key={i} seg={seg} clearance={clearance} />))}
         </p>
 
